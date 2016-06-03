@@ -22,7 +22,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">Healteah</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -46,6 +46,17 @@
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
             <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            Aplikacija je namenjena spremljanju in najosnovnejsi analizi ter interpretaciji vitalnih znakov pacienta.
+            Ciljno publiko aplikacije predstavljajo vsi pacienti, ki redno kontrolirajo svoje vitalne znake. 
+            Pacient v idealnem primeru vsakodnevno izvaja osnovne zdravstvene meritve (po moznosti ob istem casu, da so primerljivi <!--Primerljivost lahko oceninimo iz datuma oz. ure vnosa meritev-->), aplikacija pa ob vnosu podatke primerja z zgodovino in poskusa odkriti zdravju kljucne trende.
+            
+            Naprimer, ce je bil sistolicni krvni tlak pred tremi meritvami visji od optimalnega (torej normalen ali povisan), 
+            hkrati pa je pri vsaki kasnejsi meritvi tlak se visji, aplikacija pacientu postreze s predlogi za nizanje krvnega pritiska, na google maps pa mu prikaze bliznje wellness centre.
+            V primeru, da trenutni (zadnja meritev) sistolicni krvni tlak indicira predhipertenzijo ali hipertenzijo se okno aplikacije obarva rdece, 
+            na google maps pa paciantu izrisemo pot do najblizje bolnisnice.
+            V primeru hipertenzije stopnje 2(sistolicni tlak visji od 160) aplikacija poslje sms zdravniku.
+            
+            Na podoben nacin spremljamo tudi druge indikatorje: BMI,telesna temperatura in okisicenost krvi. 
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -76,6 +87,9 @@
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
             <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            https://developers.google.com/places/web-service/ ---> za iskanje najblizje bolnisnice ali wellness centra
+            https://developers.google.com/maps/documentation/directions/ ---> za pot do najblizje bolnisnice ali wellness centra
+            https://developers.google.com/maps/documentation/embed/ ---> za prikaz lokacij
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
