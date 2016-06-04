@@ -79,6 +79,9 @@ function getSessionId() {
  * @param stPacienta zaporedna številka pacienta (1, 2 ali 3)
  * @return ehrId generiranega pacienta
  */
+var done=0; 
+var error=0; 
+var ehrident;
 function generirajPodatke(stPacienta) {
   var sessionId = getSessionId();    
   var ehrId = "";
@@ -113,6 +116,8 @@ function generirajPodatke(stPacienta) {
 		    type: 'POST',
 		    success: function (data) {
 		        ehrId = data.ehrId;
+		        console.log("ehrId");
+		        ehrident[stPacienta-1]=ehrId;
 		        var partyData = {
 		            firstNames: ime,
 		            lastNames: priimek,
@@ -126,16 +131,13 @@ function generirajPodatke(stPacienta) {
 		            data: JSON.stringify(partyData),
 		            success: function (party) {
 		                if (party.action == 'CREATE') {
-		                    $("#kreirajSporocilo").html("<span class='obvestilo " +
-                          "label label-success fade-in'>Uspešno kreiran EHR '" +
-                          ehrId + "'.</span>");
 		                    $("#preberiEHRid").val(ehrId);
 		                }
+		                error[stPacienta-1]=0;
 		            },
 		            error: function(err) {
-		            	$("#kreirajSporocilo").html("<span class='obvestilo label " +
-                    "label-danger fade-in'>Napaka '" +
-                    JSON.parse(err.responseText).userMessage + "'!");
+		            	error[stPacienta-1]=JSON.parse(err.responseText).userMessage;
+		            	//error=1;
 		            }
 		        });
 		        
@@ -151,20 +153,105 @@ function generirajPodatke(stPacienta) {
 		        }else if(stPacienta==3){
 		           dodajMeritveVitalnihZnakov(ehrId,"2016-06-04T07:30","171","53","39.7","141","91","94","Alojzija Kriticno");
 		           dodajMeritveVitalnihZnakov(ehrId,"2016-05-04T07:30","171","58","39.7","141","91","94","Alojzija Kriticno");
-		        }      
+		        } 
+		        
+	            done=done+1;
+	            if(done>=3){
+	            	$("#kreirajSporocilo").html("");
+	            	var id1=ehrident[0];
+	            	var id2=ehrident[1];
+	            	var id3=ehrident[2];
+	            	if(error[0]==0){
+    					$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+"<span class='obvestilo " +
+                          "label label-success fade-in'>Uspešno kreiran EHR '" +
+                          id1 + "'.</span>");
+    	
+    				}else{
+    					$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+
+    					"<span class='obvestilo label " +
+                		"label-danger fade-in'>Napaka '" +
+                		 error[0] + "'!");
+					 }
+					 if(error[1]==0){
+    					$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+"<span class='obvestilo " +
+                          "label label-success fade-in'>Uspešno kreiran EHR '" +
+                          id1 + "'.</span>");
+    	
+    				}else{
+    					$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+
+    					"<span class='obvestilo label " +
+                		"label-danger fade-in'>Napaka '" +
+                		 error[1] + "'!");
+					 }
+					 if(error[2]==0){
+    					$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+"<span class='obvestilo " +
+                          "label label-success fade-in'>Uspešno kreiran EHR '" +
+                          id1 + "'.</span>");
+    	
+    				}else{
+    					$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+
+    					"<span class='obvestilo label " +
+                		"label-danger fade-in'>Napaka '" +
+                		 error[2] + "'!");
+					 }
+	            }
+
 		    }
 		});
-    
-    
   return ehrId;
 }
 
 function generirajTestnePodatke(){
-    var id1=generirajPodatke(1); //ad4903e9-2be4-49ff-b425-fed443df9193
+	error=[0,0,0];
+	ehrident=["","",""];
+	done=0;
+    generirajPodatke(1); //ad4903e9-2be4-49ff-b425-fed443df9193
+    generirajPodatke(2); //58805faf-b05a-4be5-8d22-5d4c3b09b031
+    generirajPodatke(3); //d5457738-78e0-48a9-bcfd-9535e23fc8b3 
+
+
+    /*id1=ehrident;
+    if(error==0){
+    $("#kreirajSporocilo").html($("#kreirajSporocilo").html()+"<span class='obvestilo " +
+                          "label label-success fade-in'>Uspešno kreiran EHR '" +
+                          id1 + "'.</span>");
+    	
+    }else{
+    	$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+
+    	"<span class='obvestilo label " +
+                    "label-danger fade-in'>Napaka '" +
+                    error + "'!");
+    }
     var id2=generirajPodatke(2); //58805faf-b05a-4be5-8d22-5d4c3b09b031
+    id2=ehrident;
+    if(error==0){
+    $("#kreirajSporocilo").html($("#kreirajSporocilo").html()+"<span class='obvestilo " +
+                          "label label-success fade-in'>Uspešno kreiran EHR '" +
+                          id2 + "'.</span>");
+    	
+    }else{
+    	$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+
+    	"<span class='obvestilo label " +
+                    "label-danger fade-in'>Napaka '" +
+                    error + "'!");
+    }
     var id3=generirajPodatke(3); //d5457738-78e0-48a9-bcfd-9535e23fc8b3 
-    console.log(id1+"\t"+id2+"\t"+id3);
-    
+    id3=ehrident;
+    if(error==0){
+    $("#kreirajSporocilo").html($("#kreirajSporocilo").html()+"<span class='obvestilo " +
+                          "label label-success fade-in'>Uspešno kreiran EHR '" +
+                          id3 + "'.</span>");
+    	
+    }else{
+    	$("#kreirajSporocilo").html($("#kreirajSporocilo").html()+
+    	"<span class='obvestilo label " +
+                    "label-danger fade-in'>Napaka '" +
+                    error + "'!");
+    }
+
+	console.log(""+id1);
+	console.log(""+id2);
+	console.log(""+id3);*/
     return false;
 
 
