@@ -159,5 +159,16 @@ function generirajPodatke(stPacienta) {
   return ehrId;
 }
 
+function generirajTestnePodatke(){
+    var id1=generirajPodatke(1); //ad4903e9-2be4-49ff-b425-fed443df9193
+    var id2=generirajPodatke(2); //58805faf-b05a-4be5-8d22-5d4c3b09b031
+    var id3=generirajPodatke(3); //d5457738-78e0-48a9-bcfd-9535e23fc8b3 
+    console.log(id1+"\t"+id2+"\t"+id3);
+    
+    return false;
+
+
+}
+
 
 // TODO: Tukaj implementirate funkcionalnost, ki jo podpira vaša aplikacija
